@@ -1,48 +1,75 @@
-// url = 'http://example.com/path/file.jpg'
-function downloadFile(url, downloaded) {
-    console.log("Started download " + url)
-    // Save it inside 'C:/Windows/Images/'
-    let savePath = 'C:/Windows/Images/' + url.split('/').pop()
+function downloadFile(url) {
+    return new Promise((resolve, reject) => {
+        if (!(url.split('://')[0] === 'http' ||
+                url.split('://') === 'https')) {
+            return reject(new Error("Url must start with http/https"))
+        }
+        console.log("Started download " + url)
+        // Save it inside 'C:/Windows/Images/'
+        let savePath = 'C:/Windows/Images/' + url.split('/').pop()
 
-    setTimeout(() => {
-        console.log("Saved to " + savePath)
-        downloaded(savePath)
-    }, 3000)
-
+        setTimeout(() => {
+            console.log("Saved to " + savePath)
+            resolve(savePath)
+        }, 3000)
+    })
 }
-//path = 'C:/Windows/Images/file.jpg'
+
 function compressFile(path, compressed) {
-    console.log("Going to compress " + path)
-    let fileName = path.split('/').pop().split('.')[0]
-    let compressedPath = 'C:/Files/' + fileName + '.zip'
+    return new Promise((resolve, reject) => {
+        console.log("Going to compress " + path)
 
-    setTimeout(() => {
-        console.log("Compressed to " + compressedPath)
-        compressed(compressedPath)
-    }, 2000)
+        let fileNameArr = path.split('/').pop().split('.')
+
+        if (!(fileNameArr[1] === 'jpg' || fileNameArr[1] === 'png')) {
+            return reject(new Error("We can only compress jpg or png files"))
+        }
+
+        let fileName = fileNameArr[0]
+        let compressedPath = 'C:/Files/' + fileName + '.zip'
+
+        setTimeout(() => {
+            console.log("Compressed to " + compressedPath)
+            resolve(compressedPath)
+        }, 2000)
+    })
+
 }
 
-//path = 'C:/Files/file.zip'
 function uploadFile(path, uploaded) {
-    console.log("Uploading file " + path)
-    // ftp://fileserver.com/zipimages/file.zip
-    let uploadedPath =
-        'ftp://fileserver.com/zipimages/' +
-        path.split('/').pop()
+    return new Promise((resolve, reject) => {
+        console.log("Uploading file " + path)
+        // ftp://fileserver.com/zipimages/file.zip
+        let fileName = path.split('/').pop()
 
-    setTimeout(() => {
-        console.log("Uploaded to " + uploadedPath)
-        uploaded(uploadedPath)
-    }, 2500)
+        if (!fileName.charAt(0).toLowerCase().match(/([a-z])/)) {
+            return reject(new Error("Cannot upload files with name not starting with alphabet"))
+        }
+
+        let uploadedPath =
+            'ftp://fileserver.com/zipimages/' +
+            path.split('/').pop()
+
+        setTimeout(() => {
+            console.log("Uploaded to " + uploadedPath)
+            resolve(uploadedPath)
+        }, 2500)
+    })
 }
 
 
 function start(url) {
+    // downloadFile(url).then((savedPath) => {
+    //     compressFile(savedPath).then((compressedPath) => {
+    //         uploadFile(compressedPath).then((uploadedPath) => {
 
-    downloadFile(url, (savedPath) => {
-        compressFile(savedPath, (compressedPath) => {
-            uploadFile(compressedPath, () => {})
-        })
-    })
+    //         })
+    //     })
+    // })
+
+    downloadFile(url)
+        .catch((err) => alert(err.message))
+        .then(compressFile)
+        .then(uploadFile)
 
 }
