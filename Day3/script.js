@@ -1,21 +1,28 @@
-class Person {
-    constructor(name, age) {
-        this.name = name
-        let a = age
-        this.isAdult = () => age > 18
+class Shape {
+    constructor(sides, color) {
+        this.sides = sides
+        this.color = color
     }
 
-    get firstName() {
-        return this.name.split(" ")[0]
+    protFun() {
+        console.log("prototype function")
     }
 
-    set firstName(val) {
-        if (val.length > 10) {
-            throw new Error('Name too long')
-        }
-        this.name = val + ' ' + this.name.split(' ')[1]
+    static statFun() {
+        console.log("static function")
+    }
+
+    get vertices() {
+        return this.sides
     }
 }
 
-let p = new Person("Jane Doe", 25)
-let p2 = new Person("John Doe", 30)
+class Square extends Shape {
+    constructor(color) {
+        super(4, color)
+    }
+}
+
+let redTriangle = new Shape(3, 'red')
+
+let blueSquare = new Square('blue')
