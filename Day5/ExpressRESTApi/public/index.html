@@ -11,8 +11,13 @@
 
 <body>
     <div id="app">
-        <span>{{ message }}</span>
-        <input v-model="message" type="text">
+        <input type="text" v-model='newtask'>
+        <button v-on:click="addTodo">ADD</button>
+        <ul>
+            <li v-for="todo in todos">
+                {{todo.task}}
+            </li>
+        </ul>
     </div>
 
 
@@ -20,7 +25,15 @@
         let app = new Vue({
             el: '#app',
             data: {
-                message: 'HELLO'
+                newtask: '',
+                todos: [
+                    {task: 'Predefined Task'}
+                ]
+            },
+            methods: {
+                addTodo () {
+                    this.todos.push({task: this.newtask})
+                }
             }
         })
     </script>
