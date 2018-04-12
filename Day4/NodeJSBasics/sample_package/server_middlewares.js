@@ -30,6 +30,19 @@ app.get('/b/a', (req, res) => {
     res.send("b/a")
 })
 
+app.get('/b/c', (req, res) => {
+    let a = [1, 2]
+    res.send(
+        `
+        <ul>
+            <li>${a[0]}</li>
+            <li>${Math.pow(a[1], 3)}</li>
+        </ul>
+        `
+    )
+
+})
+
 app.use(function (req, res) {
     res.status(404).send("<h1>No such page found</h1>")
 })
