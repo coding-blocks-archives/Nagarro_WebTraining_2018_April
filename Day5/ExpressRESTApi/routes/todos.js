@@ -6,7 +6,13 @@ const route = require('express').Router()
  */
 let todos = []
 
-route.get('/', (req, res) => res.json(todos))
+route.get('/', (req, res) => res.json(todos.map((t, i) =>
+    ({
+        id: i,
+        task: t.task,
+        done: t.done
+    })
+)))
 
 route.post('/', (req, res) => {
     if (typeof req.body.done === 'string') {
@@ -26,7 +32,13 @@ route.post('/', (req, res) => {
 
 route.get('/:id', (req, res) => res.json(todos[req.params.id]))
 
-route.delete('/:id')
+route.delete('/:id', (req, res) => {
+    todos.splice(req.params.id, 1)
+    res.json({
+        success: true,
+        length: todos.length
+    })
+})
 
 
 module.exports = route
