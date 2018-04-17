@@ -9,8 +9,26 @@ const db = new Sequelize('ngrwsdb', 'ngrusr', 'ngrpass', {
     //     min: 0,
     //     idle: 10000
     // },
+    storage: './ngrws.db'
 })
 
-db.authenticate()
-    .then(() => console.log("We can connect to DB"))
-    .catch((err) => console.error(err))
+const Todo = db.define('todo', {
+    task: {
+        type: Sequelize.STRING(40),
+        allowNull: false
+    },
+    done: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    }
+})    
+
+async function task () {
+    try {
+        await db.authenticate()
+        await db.sync()
+    } catch (err) {
+        console.error(err)
+    }
+}
+task ()
