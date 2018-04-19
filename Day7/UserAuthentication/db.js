@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize')
 
 const db = new Sequelize('ngrwsdb', 'ngrusr', 'ngrpass', {
-    dialect: 'mysql',
-    host: 'localhost',
+    dialect: 'sqlite',
+    // host: 'localhost',
+    storage: './users.db'
 })
 
 
