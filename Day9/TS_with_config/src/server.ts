@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express'
+import studentRoute from './routes/students'
 
 const app = express();
 
 const routes = {
-  students: require('./routes/students')
+  students: studentRoute
 }
 
 app.use(express.json())

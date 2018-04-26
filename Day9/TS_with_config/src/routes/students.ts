@@ -1,4 +1,4 @@
-import express = require('express')
+import express from 'express'
 
 const route = express.Router()
 
@@ -15,4 +15,4 @@ route.post('/', (req, res) => {
   res.json(students[students.length - 1])
 })
 
-export = route
+export default route

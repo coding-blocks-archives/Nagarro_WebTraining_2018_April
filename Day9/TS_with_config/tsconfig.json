@@ -5,7 +5,9 @@
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": "src",
-    "allowJs": true
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "include": [
     "src"
