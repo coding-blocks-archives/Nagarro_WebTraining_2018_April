@@ -5,11 +5,10 @@
     "moduleResolution": "node",
     "outDir": "dist",
     "rootDir": "src",
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,
-
+    "declaration": true
   },
   "include": [
     "src"

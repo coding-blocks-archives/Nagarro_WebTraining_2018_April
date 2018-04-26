@@ -1,21 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const route = express_1.Router();
-class Student {
-    constructor(name, grade, age) {
+var express_1 = require("express");
+var route = express_1.Router();
+var Student = /** @class */ (function () {
+    function Student(name, grade, age) {
         this.name = name;
         this.grade = grade;
         this.age = age;
     }
-    isAdult() {
+    Student.prototype.isAdult = function () {
         return this.age > 18;
-    }
-}
-const students = [];
-route.get('/', (req, res) => res.json(students));
-route.post('/', (req, res) => {
-    const body = req.body;
+    };
+    return Student;
+}());
+exports.Student = Student;
+var students = [];
+route.get('/', function (req, res) { return res.json(students); });
+route.post('/', function (req, res) {
+    var body = req.body;
     students.push(new Student(req.body.name, req.body.grade, parseInt(req.body.age)));
     res.json(students[students.length - 1]);
 });

@@ -1,9 +1,9 @@
 import express, {Router, Request} from 'express'
 
 
-const route = Router()
+const route: Router = Router()
 
-class Student {
+export class Student {
   public name: string
   public grade: string
   public age: number
