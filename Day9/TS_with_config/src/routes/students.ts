@@ -1,4 +1,6 @@
-const route = require('express').Router()
+import express = require('express')
+
+const route = express.Router()
 
 const students = []
 
@@ -13,4 +15,4 @@ route.post('/', (req, res) => {
   res.json(students[students.length - 1])
 })
 
-module.exports = route
+export = route

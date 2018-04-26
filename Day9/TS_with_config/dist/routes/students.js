@@ -1,4 +1,6 @@
-const route = require('express').Router();
+"use strict";
+const express = require("express");
+const route = express.Router();
 const students = [];
 route.get('/', (req, res) => res.json(students));
 route.post('/', (req, res) => {
